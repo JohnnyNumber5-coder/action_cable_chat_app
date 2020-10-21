@@ -12,9 +12,10 @@ class MessagesController < ApplicationController
                                    message: render_message(message)
       message.mentions.each do |mention|
         ActionCable.server.broadcast "room_channel_user_#{mention.id}",
-                                     mention: true
+                                     mention: true,
+                                     origin: "#{message.user.username}!"
       end
-     
+
     end
   end
 
